@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-        <welcome-file>index.htm</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>html/start.html</welcome-file>
+        <welcome-file>html/start.htm</welcome-file>
+        <welcome-file>html/start.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

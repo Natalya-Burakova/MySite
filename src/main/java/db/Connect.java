@@ -1,21 +1,32 @@
 package db;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
+
 
 public class Connect {
     private static Connection connection;
     private static Statement statement;
+    private static Properties properties;
 
     static {
-        init();
+        properties = new Properties();
+        try {
+            properties.load(new FileInputStream("resources/WEB-INF/db.properties"));
+            init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Connection openConnection(){
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Users","postgres", "1997Natbur");
+            connection = DriverManager.getConnection(properties.getProperty("db.url"),properties.getProperty("db.username"), properties.getProperty("db.password"));
             return connection;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,7 +63,7 @@ public class Connect {
 
     private static void init() {
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName(properties.getProperty("db.driverClassName"));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -3,20 +3,19 @@ package servlets;
 import db.Connect;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 @WebServlet("/signUp")
 public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("start/signUp.jsp").forward(req, resp);
+        req.getRequestDispatcher("html/signUp.html").forward(req, resp);
     }
 
     @Override
@@ -26,16 +25,42 @@ public class SignUpServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
+
         Connection connection = Connect.openConnection();
         Statement statement = Connect.openStatement();
 
-        try {
-            statement.executeUpdate("INSERT into new_user(name, mail, login, password) VALUES "+"('" +name+"', '"+mail+"', '"+login+"', '"+password+"');");
-            Connect.closeStatement();
-            Connect.closeConnection();
-        } catch (SQLException e) { e.printStackTrace();}
-
-        req.getRequestDispatcher("start/home.jsp").forward(req, resp);
+        if (checkUser(login))
+            resp.sendRedirect(req.getContextPath() + "/signUp");
+        else{
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO new_user(name,mail,login, password) VALUES (?,?,?,?)");
+                preparedStatement.setString(1, name);
+                preparedStatement.setString(2, mail);
+                preparedStatement.setString(3, login);
+                preparedStatement.setString(4, login);
+                preparedStatement.execute();
+            } catch (SQLException e) { e.printStackTrace();
+            } finally { Connect.closeStatement(); Connect.closeConnection(); }
+            resp.sendRedirect(req.getContextPath() + "/logIn");
+        }
 
     }
+
+    private boolean checkUser(String login){
+        boolean flag = false;
+
+        Connection conection = Connect.openConnection();
+        Statement statement = Connect.openStatement();
+
+        try (ResultSet result = statement.executeQuery("SELECT * FROM new_user")) {
+            while (result.next()) {
+                if (login.equals(result.getString("login")))
+                    flag = true;
+            }
+        } catch (SQLException e) { e.printStackTrace();
+        } finally { Connect.closeStatement(); Connect.closeConnection(); }
+
+        return flag;
+    }
+
 }
