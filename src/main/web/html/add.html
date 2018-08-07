@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Add</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Объявление: </h1>
+    <form method="post" action="/addAnnounce" class="my-form">
+        <div class="form-group">
+            <label for="announce">Введите загаловок вашего объявления:</label>
+            <input id="announce" name = "announce" type="text" placeholder="Загаловок" class="form-textarea" required/>
+        </div>
+        <div class="form-group">
+            <label for="text"> Введите текст вашего объявления:</label>
+            <input id="text" name = "text" type="text" placeholder="Текст" width="100%" class="page-information" required/>
+        </div>
+        <div class="form-group">
+            <label for="imgAnnounce">Введите ссылку на изображение: </label>
+            <input id="imgAnnounce" name = "imgAnnounce" type="text" placeholder="Ссылка на изображение" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <input id="add" type="submit" value="Добавить объявление" class="btn btn-success pull-right" />
+        </div>
+    </form>
+</div>
+</body>
+</html>

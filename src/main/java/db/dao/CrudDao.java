@@ -1,4 +1,4 @@
-package db.model.dao;
+package db.dao;
 
 import java.util.List;
 import java.util.Optional;
