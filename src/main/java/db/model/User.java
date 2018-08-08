@@ -10,34 +10,44 @@ public class User {
     private String password;
     private List<Announcement> announcementList;
 
+    public static class BuilderForUser {
+        private Integer id;
+        private String name;
+        private String email;
+        private String login;
+        private String password;
+        private List<Announcement> announcementList;
 
-    public User() {}
+        public BuilderForUser(String name, String email, String login, String password) {
+            this.name = name;
+            this.email = email;
+            this.login = login;
+            this.password = password;
+        }
 
-    public User(String name, String email, String login, String password){
-        this.name = name;
-        this.email = email;
-        this.login = login;
-        this.password = password;
+        public BuilderForUser setId(Integer id) {
+            this.id  = id;
+            return this;
+        }
+
+        public BuilderForUser setAnnouncementList(List<Announcement> announcementList) {
+            this.announcementList  = announcementList;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 
-    public User(Integer id, String name, String email, String login, String password){
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.login = login;
-        this.password = password;
+    private User(BuilderForUser builder) {
+        id = builder.id;
+        name = builder.name;
+        login = builder.login;
+        password = builder.password;
+        email = builder.email;
+        announcementList = builder.announcementList;
     }
-
-
-    public User(Integer id, String name, String email, String login, String password, List<Announcement> announcementList){
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.login = login;
-        this.password = password;
-        this.announcementList = announcementList;
-    }
-
 
     public Integer getId(){ return id; }
 

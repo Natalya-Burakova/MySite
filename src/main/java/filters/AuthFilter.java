@@ -2,7 +2,6 @@ package filters;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,6 +24,7 @@ public class AuthFilter implements Filter {
         else
             filterChain.doFilter(request, response);
     }
+
     @Override
     public void destroy() { }
 }

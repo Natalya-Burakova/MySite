@@ -17,11 +17,13 @@ public class AddAnnounceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         req.getRequestDispatcher("html/add.html").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         if (req.getParameter("announce") != null && req.getParameter("text") != null && req.getParameter("imgAnnounce") != null) {
 
             String announce = req.getParameter("announce");
@@ -32,7 +34,10 @@ public class AddAnnounceServlet extends HttpServlet {
             String login = (String) session.getAttribute("user");
 
             if (Connect.getUserDao().getUsersMap().containsKey(login)) {
-                Announcement announcement = new Announcement(announce, text, image, Connect.getUserDao().getUsersMap().get(login));
+                Announcement announcement = new Announcement
+                        .BuilderForAnnouncement(announce, text, image)
+                        .setOwner(Connect.getUserDao().getUsersMap().get(login))
+                        .build();
                 Connect.getUserDao().saveAnnouncement(announcement);
                 resp.sendRedirect(req.getContextPath() + "/viewAnnounce");
             }

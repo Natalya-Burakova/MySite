@@ -19,11 +19,12 @@ public class ViewAnnounceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession(false);
         String login = (String) session.getAttribute("user");
 
-        Optional<User> userOpt = Connect.getUserDao().findByLoginAllAnnounce(login); //вернули пользователя со всеми объялениями
-        List<Announcement> listAnnounce = userOpt.get().getAnnouncementList();//лист всех объявлений
+        Optional<User> userOpt = Connect.getUserDao().findByLoginAllAnnounce(login);
+        List<Announcement> listAnnounce = userOpt.get().getAnnouncementList();
 
         req.setAttribute("listAnnounce", listAnnounce);
         req.getRequestDispatcher("html/view.jsp").forward(req, resp);

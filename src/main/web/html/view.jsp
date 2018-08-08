@@ -13,21 +13,21 @@
 <body>
 <div class="container">
     <form class="my-form">
-        <h1>Объявления: </h1>
+        <h1> Ваши объявления: </h1>
         <table class="table-view">
             <tr>
-                <th colspan="1">№</th>
-                <th colspan="2">Название</th>
-                <th colspan="3">Текст объявления</th>
-                <th colspan="4">Изображение</th>
+                <th colspan="1" width="100">Id</th>
+                <th colspan="2" width="200">Название</th>
+                <th colspan="3" width="400">Текст объявления</th>
+                <th colspan="4" width="250">Изображение</th>
             </tr>
             <%
             List<Announcement> names = (List<Announcement>) request.getAttribute("listAnnounce");
                     if (names != null && !names.isEmpty()) {
                         for (int i=0; i<names.size(); i++) {
-                            if(names.get(0).getName()==null) continue;
+                            if(names.get(i).getName()==null) continue;
                             out.println("<tr>");
-                            out.println("<th colspan=\"1\">" + (i+1) + "</th> ");
+                            out.println("<th colspan=\"1\">" + names.get(i).getId()+ "</th> ");
                             out.println("<th colspan=\"2\">" + names.get(i).getName() + "</th> ");
                             out.println("<th colspan=\"3\">" + names.get(i).getTextAnnounce() + "</th> ");
                             out.println("<th colspan=\"4\">"+"<img width = \"200\" height = \"160\" src="+ names.get(i).getImageURL()+">" +"</th> ");

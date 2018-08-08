@@ -12,19 +12,23 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
+
 
 @WebServlet("/logIn")
 public class LogInServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("html/logIn.html").forward(req, resp);
+        req.setCharacterEncoding("UTF-8");
+        if (req.getAttribute("er")==null)
+            req.setAttribute("er", "");
+        req.getRequestDispatcher("html/logIn.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       if (req.getParameter("login")!=null && req.getParameter("password")!=null) {
+        req.setCharacterEncoding("UTF-8");
+        if (req.getParameter("login")!=null && req.getParameter("password")!=null) {
            String login = req.getParameter("login");
            String password = req.getParameter("password");
 
@@ -33,11 +37,15 @@ public class LogInServlet extends HttpServlet {
                session.setAttribute("user", login);
                resp.sendRedirect(req.getContextPath() + "/home");
            }
-           else
+           else {
+               req.setAttribute("er", "ПОЛЬЗОВАТЕЛЯ С ТАКИМИ ДАННЫМИ НЕ СУЩЕСТВУЕТ!");
                doGet(req, resp);
+           }
        }
-       else
+       else {
+            req.setAttribute("er", "ПОЛЯ НЕ ЗАПОЛНЕНЫ!");
             doGet(req, resp);
+        }
 
     }
 

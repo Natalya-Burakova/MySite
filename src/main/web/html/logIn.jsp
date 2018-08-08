@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -19,9 +20,16 @@
     </script>
 </head>
 <body>
+<%
+    request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
+%>
 <div class="container">
     <h1>Авторизация</h1>
     <form method="post" action="/logIn"  class="my-form">
+        <div class="form-group">
+            <label><%=request.getAttribute("er")%></label>
+        </div>
         <div class="form-group">
             <label for="login">Введите логин:</label>
             <input id="login" name = "login" type="text" placeholder="Логин" class="form-control" required />
