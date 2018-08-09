@@ -22,7 +22,6 @@ public class ViewAnnounceServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession(false);
         String login = (String) session.getAttribute("user");
-
         Optional<User> userOpt = Connect.getUserDao().findByLoginAllAnnounce(login);
         List<Announcement> listAnnounce = userOpt.get().getAnnouncementList();
 

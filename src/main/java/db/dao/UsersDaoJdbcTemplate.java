@@ -77,6 +77,7 @@ public class UsersDaoJdbcTemplate implements UsersDao {
     @Override
     public Optional<User> findByLogin(String login) {
         List<User> listAllUsers = findAll();
+
         for (User user : listAllUsers){
             if (user.getLogin().equals(login))
                 return Optional.of(new User
